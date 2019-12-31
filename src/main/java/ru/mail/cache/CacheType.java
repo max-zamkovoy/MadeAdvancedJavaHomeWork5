@@ -6,18 +6,16 @@ import ru.mail.cache.invoker.MemoryInvoker;
 
 public enum CacheType {
 
-    IN_MEMORY() {
-        @Override
-        public Invoker getInvoker() {
-            return new MemoryInvoker();
-        }
-    },
-    IN_FILE() {
-        @Override
-        public Invoker getInvoker() {
-            return new FileInvoker();
-        }
-    };
+    IN_MEMORY(new MemoryInvoker()),
+    IN_FILE(new FileInvoker());
 
-    public abstract Invoker getInvoker();
+    private Invoker invoker;
+
+    CacheType(Invoker invoker) {
+        this.invoker = invoker;
+    }
+
+    public Invoker getInvoker() {
+        return invoker;
+    }
 }
